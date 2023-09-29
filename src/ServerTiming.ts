@@ -188,10 +188,10 @@ export class ServerTiming {
    * const rows = serverTiming.track('db', () => db.query())
    * ```
    */
-  async track<T extends () => Promise<any> | any>(
+  async track<T extends Promise<any>>(
     labelObj: ServerTimingLabel,
-    fn: T
-  ): Promise<Awaited<ReturnType<T>>> {
+    fn: () => T
+  ): T {
     this.start(labelObj)
 
     try {
